@@ -1,13 +1,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var mongojs = require("mongojs");
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 var cheerio = require("cheerio");
 var request = require("request");
 
+var db = require("./models");
+
 var app = express();
 
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
@@ -19,18 +20,19 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var databaseUrl = "articles";
-var collections = ["scrapedArticles"];
-
-var db = mongojs(databaseUrl, collections);
+mongoose.connect("mongodb://localhost/scrapedData");
 
 // This makes sure that any errors are logged if mongodb runs into an issue
-db.on("error", function(error) {
-  console.log("Database Error:", error);
-});
+// db.on("error", function(error) {
+//   console.log("Database Error:", error);
+// });
 
-app.listen(8080, function() {
-    console.log("App running on port 8080!");
-  });
+
+
+app.listen(PORT, function() {
+    console.log("App running on port " + PORT + "!");
+});
   
-  
+var routes = require("./controller/orm.js");
+app.use(routes);
+
