@@ -21,7 +21,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapedData";
-mongoose.connect(MONGODB_URI, { useMongoClient: true});
+mongoose.connect(MONGODB_URI);
 
 // This makes sure that any errors are logged if mongodb runs into an issue
 // db.on("error", function(error) {
