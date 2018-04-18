@@ -1,15 +1,13 @@
 
 <div>
-    <h1> Articles! </h1>
+    
 </div>
-<ul>
-  {{#each item}}
-  	<li>
-  		<p><span class="label">Title:</span> {{this.title}}</p>
-     
-        <button data-id="{{this.id}}" class="del-item">Delete</button>
 
-        <a href="http://www.reddit.com{{this.link}}"class="button">View Article</a>
-  	</li>
+  {{#each item}}
+      <div class="card mt-3">
+  		<div class="card-header bg-info text-white"><span class="label">Title:</span> {{this.title}}</div>
+        <div class="card-body bg-warning text-info ">
+          <button data-id="{{this.id}}" class="del-item btn btn-danger">Delete</button>
+          <a href="http://www.reddit.com{{this.link}}" class="button btn btn-primary">View Article</a>
+        </div>
   {{/each}}
-</ul>

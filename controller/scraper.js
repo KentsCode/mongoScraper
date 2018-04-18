@@ -9,11 +9,8 @@ var db = require("../models");
 
 
 var scrape = function () {
-  console.log("\n***********************************\n" +
-            "Grabbing every thread name and link\n" +
-            "from reddit's webdev board:" +
-            "\n***********************************\n");
-  request("https://www.reddit.com/r/webdev", function(error, response, html) {
+  
+  request("https://www.reddit.com/r/learnprogramming/", function(error, response, html) {
     var $ = cheerio.load(html);
 
 
@@ -32,22 +29,15 @@ var scrape = function () {
 
       db.Article.create(result)
         .then(function(dbArticle) {
-          // View the added result in the console
-          //console.log(dbArticle);
 
         })
         .catch(function(err) {
-          // If an error occurred, send it to the client
           return res.json(err);
         });
     });
-    //console.log("from scraper!!!" + results);
   });
-  //console.log("from scraper" + results);
 };
 
-
-//console.log(resultsObject);
 module.exports = {
   scrape
 };

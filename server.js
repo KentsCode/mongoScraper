@@ -28,12 +28,10 @@ mongoose.connect(MONGODB_URI);
 //   console.log("Database Error:", error);
 // });
 
-
-
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
 });
   
-var routes = require("./controller/orm.js");
+var routes = require("./controller/router.js");
 app.use(routes);
 

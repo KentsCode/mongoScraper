@@ -9,12 +9,9 @@ const scraper = require("./scraper.js");
 router.get("/", function(req, res) {
     db.Article.find({})
         .then(function(dbArticle) {
-        //console.log(dbArticle);
         res.render("articles", { item: dbArticle });
         })
-    
     console.log("received!!!");
-        //res.render("articles");
 });
 
 router.post("/submit", function(req, res) {
@@ -31,17 +28,25 @@ router.get("/scrape", function(req,res) {
     db.Article.find({})
         .then(function(dbArticle) {
         console.log(dbArticle);
+        res.render("scrape");
         })
-    res.render("articles"/*, {item: scraper.*/);
+    
     //still not fully working.
     // res.send(scraper.result);
     // console.log(scraper.results);
 });
 
-router.get("/delete", function(req,res) {
-    console.log(req);
+router.get("/delete/:id", function(req,res) {
+    console.log(req.params.id);
     console.log("received Delete");
-    //db.Article.remove({id: req.id});
+    db.Article.findByIdAndRemove(req.params.id, (err, todo) => {
+        if (err) return res.status(500).send(err);
+        const response = {
+            message: "Todo successfully deleted",
+            id: todo._id
+        };
+        return res.status(200).send(response);
+    });
 })
 
 module.exports = router;
